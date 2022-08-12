@@ -1,0 +1,46 @@
+-- For handling cache on (settings page)
+ALTER TABLE `store` ADD `caching` TINYINT(1) NOT NULL DEFAULT '1' AFTER `reference_number`;
+
+-- Store details caching into timestamp (19 Oct 2019)
+ALTER TABLE `store` CHANGE `caching` `cached_version` INT(11) NOT NULL DEFAULT '1';
+
+-- Create appointment table (18 April 2020)
+CREATE TABLE `appointment` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `requested_date` date NOT NULL,
+  `work_requested` text NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+-- Create inspectionreport table (03 May 2020)
+CREATE TABLE `inspectionreport` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `order_id` INT(11) UNSIGNED NOT NULL,
+  `preliminary_inspection` TEXT NOT NULL,
+  `cluster` TEXT NOT NULL,
+  `under_hood` TEXT NOT NULL,
+  `under_car` TEXT NOT NULL,
+  `steering_suspension` TEXT NOT NULL,
+  `tires` TEXT NOT NULL,
+  `brakes` TEXT NOT NULL,
+  `tech_initials` TEXT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+
+-- Add Column Manufacturer to orderitem table --
+ALTER TABLE `orderitem` ADD COLUMN `manufacturer` VARCHAR(100) null AFTER order_id
+
+-- Add active and central_id in user table
+ALTER TABLE `user` ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
+ALTER TABLE `user` ADD `central_id` int(11) DEFAULT NULL;
+
+-- Add Column for Email Reminder
+ALTER TABLE `store` ADD COLUMN `email_reminder` TINYINT(1) NOT NULL DEFAULT 0 AFTER `reference_number`;

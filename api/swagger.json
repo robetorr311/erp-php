@@ -1,0 +1,896 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "The Major League Tire ERP API",
+		"version": "1.0.0",
+		"title": "Major League Tire ERP"
+	},
+	"host": "127.0.0.1",
+	"basePath": "/erp/api/v1",
+	"tags": [
+		{
+			"name": "vehicle",
+			"description": "Get information related to vehicle"
+		},
+		{
+			"name": "order",
+			"description": "Get information related to order"
+		},
+		{
+			"name": "orderitem",
+			"description": "Get information related to orderitem"
+		},
+		{
+			"name": "technician",
+			"description": "Get information related to technician"
+		},
+		{
+			"name": "address",
+			"description": "Get information related to address"
+		},
+		{
+			"name": "customer",
+			"description": "Get information related to customer"
+		},
+		{
+			"name": "itemtype",
+			"description": "Get information related to itemtype"
+		}
+	],
+	"schemes": [
+		"http"
+	],
+	"paths": {
+		"/vehicle": {
+			"get": {
+				"tags": [
+					"vehicle"
+				],
+				"summary": "Finds vehicle",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"vehicle"
+				],
+				"summary": "Add a new vehicle to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				},
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Vehicle object that needs to be added",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/vehicle"
+						}
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"vehicle"
+				],
+				"summary": "Update an existing vehicle",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "vehicle not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"vehicle"
+				],
+				"summary": "Deletes a vehicle",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "vehicle not found"
+					}
+				}
+			}
+		},
+		"/vehicle/search": {
+			"get": {
+				"tags": [
+					"vehicle"
+				],
+				"summary": "Finds vehicle",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				},
+				"parameters": [
+					{
+						"in": "query",
+						"name": "vin",
+						"description": "Search vehicles by VIN",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "license",
+						"description": "Search vehicles by license",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/vehicle/byCustomer/{customerId}": {
+			"get": {
+				"tags": [
+					"vehicle"
+				],
+				"summary": "Finds vehicle by customerId",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				},
+				"parameters": [
+					{
+						"in": "path",
+						"name": "customerId",
+						"description": "Search for vehicles by customerId",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				]
+			}
+		},
+		"/order/{orderId}": {
+			"get": {
+				"tags": [
+					"order"
+				],
+				"summary": "Finds order",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				},
+				"parameters": [
+					{
+						"in": "path",
+						"name": "orderId",
+						"description": "Search for order by orderId",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				]
+			}
+		},
+		"/order/open": {
+			"get": {
+				"tags": [
+					"order"
+				],
+				"summary": "Finds all open orders",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			}
+		},
+		"/order": {
+			"post": {
+				"tags": [
+					"order"
+				],
+				"summary": "Add a new order to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"order"
+				],
+				"summary": "Update an existing order",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "order not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"order"
+				],
+				"summary": "Deletes a order",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "order not found"
+					}
+				}
+			}
+		},
+		"/orderitem": {
+			"get": {
+				"tags": [
+					"orderitem"
+				],
+				"summary": "Finds orderitem",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"orderitem"
+				],
+				"summary": "Add a new orderitem to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"orderitem"
+				],
+				"summary": "Update an existing orderitem",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "orderitem not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"orderitem"
+				],
+				"summary": "Deletes a orderitem",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "orderitem not found"
+					}
+				}
+			}
+		},
+		"/technician": {
+			"get": {
+				"tags": [
+					"technician"
+				],
+				"summary": "Finds technician",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"technician"
+				],
+				"summary": "Add a new technician to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"technician"
+				],
+				"summary": "Update an existing technician",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "technician not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"technician"
+				],
+				"summary": "Deletes a technician",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "technician not found"
+					}
+				}
+			}
+		},
+		"/contact": {
+			"get": {
+				"tags": [
+					"contact"
+				],
+				"summary": "Finds contact",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"contact"
+				],
+				"summary": "Add a new contact to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"contact"
+				],
+				"summary": "Update an existing contact",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "contact not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"contact"
+				],
+				"summary": "Deletes a contact",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "contact not found"
+					}
+				}
+			}
+		},
+		"/customer": {
+			"get": {
+				"tags": [
+					"customer"
+				],
+				"summary": "Finds customer",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"customer"
+				],
+				"summary": "Add a new customer to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				},
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Customer object that needs to be added",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/customer"
+						}
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"customer"
+				],
+				"summary": "Update an existing customer",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "customer not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"customer"
+				],
+				"summary": "Deletes a customer",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "customer not found"
+					}
+				}
+			}
+		},
+		"/customer/search": {
+			"get": {
+				"tags": [
+					"customer"
+				],
+				"summary": "Finds customer",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				},
+				"parameters": [
+					{
+						"in": "query",
+						"name": "firstName",
+						"description": "Search customers by first name",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "lastName",
+						"description": "Search customers by last name",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"in": "query",
+						"name": "phone",
+						"description": "Search customers by phone",
+						"required": false,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/itemtype": {
+			"get": {
+				"tags": [
+					"itemtype"
+				],
+				"summary": "Finds itemtype",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"400": {
+						"description": "Invalid status value"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"itemtype"
+				],
+				"summary": "Add a new itemtype to the store",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"405": {
+						"description": "Invalid input"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"itemtype"
+				],
+				"summary": "Update an existing itemtype",
+				"description": "",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "itemtype not found"
+					},
+					"405": {
+						"description": "Validation exception"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"itemtype"
+				],
+				"summary": "Deletes a itemtype",
+				"description": "",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid ID supplied"
+					},
+					"404": {
+						"description": "itemtype not found"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"customer": {
+			"type": "object",
+			"properties": {
+				"userType": {
+					"type": "string"
+				},
+				"taxExempt": {
+					"type": "boolean",
+					"default": false
+				},
+				"taxExemptNum": {
+					"type": "string"
+				},
+				"businessName": {
+					"type": "string"
+				},
+				"addressLine1": {
+					"type": "string"
+				},
+				"addressLine2": {
+					"type": "string"
+				},
+				"addressLine3": {
+					"type": "string"
+				},
+				"city": {
+					"type": "string"
+				},
+				"state": {
+					"type": "string"
+				},
+				"zip": {
+					"type": "string"
+				},
+				"contact" : {
+					"$ref": "#/definitions/contact"
+				}
+			}
+		},
+		"contact": {
+			"type": "object",
+			"properties": {
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"phone1": {
+					"type": "string"
+				},
+				"phone1type": {
+					"type": "string",
+					"enum": ["C","W","H"]
+				},
+				"phone2": {
+					"type": "string"
+				},
+				"phone2type": {
+					"type": "string",
+					"enum": ["C","W","H"]
+				},
+				"phone3": {
+					"type": "string"
+				},
+				"phone3type": {
+					"type": "string",
+					"enum": ["C","W","H"]
+				},
+				"email": {
+					"type": "string"
+				},
+				"isPrimary": {
+					"type": "boolean",
+					"default": true
+				},
+				"isDeclined": {
+					"type": "boolean",
+					"default": true
+				},				
+				"customerId": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"vehicle": {
+			"type": "object",
+			"properties": {
+				"year": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"make": {
+					"type": "string"
+				},
+				"model": {
+					"type": "string"
+				},
+				"trim": {
+					"type": "string"
+				},
+				"mileage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"vin": {
+					"type": "string"
+				},
+				"fleetnum": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"license": {
+					"type": "string"
+				},
+				"active": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"customer_id": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `contact` ADD `isdeclined` VARCHAR(191) NULL AFTER `customer_id`;
